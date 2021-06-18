@@ -1,0 +1,9 @@
+base:
+  language: c
+  engine: libFuzzer 
+  steps:
+    - run: $CC $CFLAGS -c ./cfe/modules/evs/fsw/src/fuzz.c
+    - run: $CC $CFLAGS ./cfe/modules/evs/fsw/src/fuzz.o $LIB_FUZZING_ENGINE -o broken_method_fuzzer
+  sanitizers:
+    address: {}
+    undefined: {}
