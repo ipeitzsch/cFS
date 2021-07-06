@@ -2,10 +2,8 @@ base:
   language: c
   engine: libFuzzer 
   steps:
-    - run: ENABLE_FUZZ_TESTS=1 make clean prep all install
-    - run: ./build/exe/cpu1/core-cpu1 
-    # - run: $CC $CFLAGS -c ./cfe/modules/evs/fsw/src/fuzz.c
-    # - run: $CC $CFLAGS ./cfe/modules/evs/fsw/src/fuzz.o $LIB_FUZZING_ENGINE -o broken_method_fuzzer
+    - run: $CC $CFLAGS -c ./cfe/modules/evs/fsw/src/fuzz.c
+    - run: $CC $CFLAGS ./cfe/modules/evs/fsw/src/fuzz.o $LIB_FUZZING_ENGINE -o broken_method_fuzzer
   sanitizers:
     address: {}
     undefined: {}
