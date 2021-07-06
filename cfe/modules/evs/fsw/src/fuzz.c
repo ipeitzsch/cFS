@@ -2,7 +2,7 @@
 #include "cfe_version.h"        /* cFE version definitions */
 #include "cfe_evs_verify.h"
 #include "osapi-common.h"
-#include "/home/ian/cFS/cfe/modules/es/fsw/src/cfe_es_module_all.h"
+#include "../.././../es/fsw/src/cfe_es_module_all.h"
 
 #include <string.h>
 
