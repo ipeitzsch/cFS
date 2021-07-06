@@ -8,7 +8,7 @@
 
 #include "cfe_es_resetdata_typedef.h" /* Definition of CFE_ES_ResetData_t */
 
-void init() {
+void init(void) {
   CFE_ES_ResetData_t* reset = malloc(sizeof(CFE_ES_ResetData_t));
     // init CFE_EVS_GLOBAL
     memset(&CFE_EVS_Global, 0, sizeof(CFE_EVS_Global));
@@ -48,7 +48,7 @@ void init() {
     CFE_ES_Global.SystemState = CFE_ES_SystemState_OPERATIONAL;
 }
 
-void uninit() {
+void uninit(void) {
   // free(CFE_EVS_Global.EVS_LogPtr);
   free(CFE_ES_Global.ResetDataPtr);
 }
