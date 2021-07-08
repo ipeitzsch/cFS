@@ -9,7 +9,7 @@
 #include "cfe_es_resetdata_typedef.h" /* Definition of CFE_ES_ResetData_t */
 
 void init(void) {
-  CFE_ES_ResetData_t* reset = malloc(sizeof(CFE_ES_ResetData_t));
+  CFE_ES_ResetData_t reset;
     // init CFE_EVS_GLOBAL
     memset(&CFE_EVS_Global, 0, sizeof(CFE_EVS_Global));
 
@@ -20,7 +20,7 @@ void init(void) {
     CFE_EVS_Global.EVS_TlmPkt.Payload.OutputPort        = CFE_PLATFORM_EVS_PORT_DEFAULT;
     CFE_EVS_Global.EVS_TlmPkt.Payload.LogMode           = CFE_PLATFORM_EVS_DEFAULT_LOG_MODE;
 
-    CFE_EVS_Global.EVS_LogPtr = &reset->EVS_Log;
+    CFE_EVS_Global.EVS_LogPtr = &reset.EVS_Log;
     CFE_EVS_Global.EVS_LogPtr->LogCount = 0;
     CFE_EVS_Global.EVS_LogPtr->LogFullFlag = 0;
     CFE_EVS_Global.EVS_LogPtr->LogMode = 0;
@@ -37,7 +37,7 @@ void init(void) {
     CFE_ES_Global.LastMemPoolId          = CFE_ResourceId_FromInteger(0);
     CFE_ES_Global.CDSVars.LastCDSBlockId = CFE_ResourceId_FromInteger(0);
 
-    CFE_ES_Global.ResetDataPtr = reset;
+    CFE_ES_Global.ResetDataPtr = &reset;
     CFE_ES_Global.ResetDataPtr->ResetVars.ES_CausedReset = false;
     CFE_ES_Global.ResetDataPtr->ResetVars.ResetSubtype = 2; //CFE_PSP_RST_TYPE_POWERON I'm just lazy and don't want to do the include
     CFE_ES_Global.ResetDataPtr->ResetVars.ResetType    = CFE_PSP_RST_TYPE_POWERON;
@@ -48,21 +48,21 @@ void init(void) {
     CFE_ES_Global.SystemState = CFE_ES_SystemState_OPERATIONAL;
 }
 
-void uninit(void) {
-  // free(CFE_EVS_Global.EVS_LogPtr);
-  free(CFE_ES_Global.ResetDataPtr);
-}
+// void uninit(void) {
+//   // free(CFE_EVS_Global.EVS_LogPtr);
+//   free(CFE_ES_Global.ResetDataPtr);
+// }
 
 int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
   init();
   if (Size != sizeof(CFE_SB_Buffer_t)){
-    uninit();
+    // uninit();
     return 1;
   }
   CFE_SB_Buffer_t input;
   memcpy(&input, Data, sizeof(CFE_SB_Buffer_t));
   CFE_EVS_ProcessCommandPacket(&input);
 
-  uninit();
+  // uninit();
   return 0;
 }
