@@ -7,7 +7,7 @@
 project(CFE_EVS C)
 
 if(DEFINED ENV{ENABLE_FUZZ_TESTS})
-    add_compile_options(-fsanitize=fuzzer-no-link)
+    add_compile_options(-fsanitize=fuzzer-no-link -fno-omit-frame-pointer -gline-tables-only -fprofile-instr-generate -fcoverage-mapping -pthread)
 endif()
 # Event services source files
 set(evs_SOURCES

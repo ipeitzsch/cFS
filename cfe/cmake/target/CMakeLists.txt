@@ -13,7 +13,7 @@
 project(CFETARGET C)
 
 if(DEFINED ENV{ENABLE_FUZZ_TESTS})
-  add_compile_options(-fsanitize=fuzzer-no-link)
+  add_compile_options(-fsanitize=fuzzer-no-link -fno-omit-frame-pointer -gline-tables-only -fprofile-instr-generate -fcoverage-mapping -pthread)
 endif()
 # Sanity check on inputs - these should be set in the parent script(s)
 if (NOT DEFINED TGTNAME)
@@ -128,8 +128,8 @@ add_executable(core-${TGTNAME}
 )
 
 if(DEFINED ENV{ENABLE_FUZZ_TESTS})
-  target_link_options(core-${TGTNAME} PRIVATE "-fsanitize=fuzzer,address")
-  target_compile_options(core-${TGTNAME} PRIVATE "-fsanitize=fuzzer,address")
+  target_link_options(core-${TGTNAME} PRIVATE -fsanitize=fuzzer,address,undefined -fno-omit-frame-pointer -gline-tables-only -fprofile-instr-generate -fcoverage-mapping -pthread)
+  target_compile_options(core-${TGTNAME} PRIVATE -fsanitize=fuzzer,address,undefined -fno-omit-frame-pointer -gline-tables-only -fprofile-instr-generate -fcoverage-mapping -pthread)
 endif()
 
 target_compile_definitions(core-${TGTNAME} PRIVATE
