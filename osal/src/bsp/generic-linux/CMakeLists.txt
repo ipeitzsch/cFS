@@ -14,6 +14,8 @@ add_library(osal_generic-linux_impl OBJECT
 
 if(DEFINED ENV{ENABLE_FUZZ_TESTS})
 target_compile_definitions(osal_generic-linux_impl PUBLIC FUZZ_NO_MAIN)
+target_link_options(osal_generic-linux_impl PRIVATE -fsanitize=fuzzer,address,undefined -fno-omit-frame-pointer -gline-tables-only -fprofile-instr-generate -fcoverage-mapping -pthread)
+target_compile_options(osal_generic-linux_impl PRIVATE -fsanitize=fuzzer,address,undefined -fno-omit-frame-pointer -gline-tables-only -fprofile-instr-generate -fcoverage-mapping -pthread)
 endif()
 # OSAL needs conformance to at least POSIX.1c (aka POSIX 1995) - this includes all the
 # real-time support and threading extensions.
