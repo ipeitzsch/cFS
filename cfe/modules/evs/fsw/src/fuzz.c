@@ -7,8 +7,10 @@
 #include <string.h>
 
 #include "cfe_es_resetdata_typedef.h" /* Definition of CFE_ES_ResetData_t */
-
+#include "../.././../.././../osal/src/bsp/shared/inc/bsp-impl.h"
 void init(void) {
+  main_ignore_me(0, NULL);
+
   CFE_ES_ResetData_t* reset = malloc(sizeof(CFE_ES_ResetData_t));
     // init CFE_EVS_GLOBAL
     memset(&CFE_EVS_Global, 0, sizeof(CFE_EVS_Global));

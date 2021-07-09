@@ -240,6 +240,10 @@ void OS_BSP_Shutdown_Impl(void)
      * Call application specific entry point.
      * This should set up all user tasks and resources, then return
      */
+#ifdef FUZZ_NO_MAIN
+    return 0;
+}
+#else
     OS_Application_Startup();
 
     /*
@@ -252,3 +256,4 @@ void OS_BSP_Shutdown_Impl(void)
     /* Should typically never get here */
     return OS_BSP_GetReturnStatus();
 }
+#endif

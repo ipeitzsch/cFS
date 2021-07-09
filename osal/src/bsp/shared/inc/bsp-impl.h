@@ -176,4 +176,9 @@ void OS_BSP_Shutdown_Impl(void);
 /*********************
    END bsp-impl.h
  *********************/
+
+#ifdef FUZZ_NO_MAIN
+int main_ignore_me(int argc, char *argv[]);
+#endif
+
 #endif /* BSP_IMPL_H */

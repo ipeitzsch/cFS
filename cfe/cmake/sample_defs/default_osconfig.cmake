@@ -32,4 +32,4 @@
 # specific error messages for various OSAL error/warning events, such as if a
 # module cannot be loaded or a file cannot be opened for some reason.
 #
-set(OSAL_CONFIG_DEBUG_PRINTF TRUE)
+set(OSAL_CONFIG_DEBUG_PRINTF FALSE)
