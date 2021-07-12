@@ -56,13 +56,17 @@ void uninit(void) {
 }
 
 int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
-  init();
-  if (Size != sizeof(CFE_SB_Buffer_t)){
-    uninit();
+  if (Size != sizeof(CFE_SB_Buffer_t) + sizeof(CFE_ES_AppRecord_t) + sizeof(EVS_AppData_t)){
     return 1;
   }
+  init();
   CFE_SB_Buffer_t input;
   memcpy(&input, Data, sizeof(CFE_SB_Buffer_t));
+  Data += sizeof(CFE_SB_Buffer_t);
+  memcpy(&CFE_ES_Global.AppTable[0], Data, sizeof(CFE_ES_AppRecord_t));
+  CFE_ES_Global.RegisteredExternalApps = 1;
+  Data += sizeof(CFE_ES_AppRecord_t);
+  memcpy(&CFE_EVS_Global.AppData[0], Data, sizeof(EVS_AppData_t));
   CFE_EVS_ProcessCommandPacket(&input);
 
   uninit();
