@@ -6,10 +6,6 @@
 	path = apps/ci_lab
 	url = https://github.com/nasa/ci_lab.git
         branch = master
-[submodule "apps/sample_app"]
-	path = apps/sample_app
-	url = https://github.com/nasa/sample_app.git
-        branch = master
 [submodule "apps/sample_lib"]
 	path = apps/sample_lib
 	url = https://github.com/nasa/sample_lib.git
