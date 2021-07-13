@@ -6,6 +6,7 @@ base:
     - run: cp cfe/cmake/Makefile.sample Makefile
     - run: cp -r cfe/cmake/sample_defs sample_defs
     - run: ENABLE_FUZZ_TESTS=1 make clean prep all install 
+    - run: cd build/exe/cpu1
     # - run: $CC $CFLAGS -c ./cfe/modules/evs/fsw/src/fuzz.c
     # - run: $CC $CFLAGS ./cfe/modules/evs/fsw/src/fuzz.o $LIB_FUZZING_ENGINE -o broken_method_fuzzer
   sanitizers:
