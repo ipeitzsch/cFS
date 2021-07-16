@@ -2,7 +2,7 @@ project(CFE_SAMPLE_APP C)
 
 include_directories(fsw/mission_inc)
 include_directories(fsw/platform_inc)
-
+include_directories(../../cfe/modules/core_private/fsw/inc ../../cfe/modules/es/fsw/src)
 if(DEFINED ENV{ENABLE_FUZZ_TESTS})
     add_compile_options(-fsanitize=fuzzer-no-link -fno-omit-frame-pointer -gline-tables-only -fprofile-instr-generate -fcoverage-mapping -pthread)
 endif()
