@@ -101,6 +101,11 @@ function(add_cfe_app APP_NAME APP_SRC_FILES)
   add_library(${APP_NAME} ${APPTYPE} ${APP_SRC_FILES} ${ARGN})
   target_link_libraries(${APP_NAME} core_api)
 
+  if(DEFINED ENV{ENABLE_FUZZ_TESTS})
+    target_compile_options(${APP_NAME} PRIVATE -fsanitize=fuzzer-no-link -fno-omit-frame-pointer -gline-tables-only -fprofile-instr-generate -fcoverage-mapping -pthread)
+    target_link_options(${APP_NAME} PRIVATE -fsanitize=fuzzer-no-link -fno-omit-frame-pointer -gline-tables-only -fprofile-instr-generate -fcoverage-mapping -pthread)
+  endif()
+
   # An "install" step is only needed for dynamic/runtime loaded apps
   if (APP_DYNAMIC_TARGET_LIST)
     cfs_app_do_install(${APP_NAME} ${APP_DYNAMIC_TARGET_LIST})
